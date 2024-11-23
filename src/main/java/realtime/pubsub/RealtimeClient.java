@@ -111,7 +111,7 @@ public class RealtimeClient extends EventEmitter {
             payload.put("status", status != null ? status : "ok");
             payload.put("id", messageId);
 
-            return publish("priv/" + connectionId, payload, "response", compress, null);
+            return publish("priv/" + connectionId, payload, "response", compress);
         };
     }
 
