@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 public class ClientDemoMinimal {
 
     public static void main(String[] args) throws Exception {
-        Logger logger = Logger.getLogger(ClientDemoMinimal.class.getName());
+        var logger = Logger.getLogger(ClientDemoMinimal.class.getName());
 
         var accessToken = System.getenv("ACCESS_TOKEN");
         var appId = System.getenv("APP_ID");
