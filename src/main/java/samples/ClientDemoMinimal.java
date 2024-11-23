@@ -13,8 +13,7 @@ public class ClientDemoMinimal {
         var accessToken = System.getenv("ACCESS_TOKEN");
         var appId = System.getenv("APP_ID");
 
-        var config = new RealtimeClientConfig(()
-                -> String.format("wss://genesis.r7.21no.de/apps/%s?access_token=%s", appId, accessToken));
+        var config = new RealtimeClientConfig(() -> String.format("wss://genesis.r7.21no.de/apps/%s?access_token=%s", appId, accessToken));
 
         var client = new RealtimeClient(config);
 
@@ -41,7 +40,6 @@ public class ClientDemoMinimal {
             } catch (Exception e) {
                 logger.severe("Failed to send message: " + e.getMessage());
             }
-
         });
 
         sessionFuture.get();
