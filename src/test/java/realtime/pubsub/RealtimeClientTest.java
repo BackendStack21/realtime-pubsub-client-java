@@ -58,6 +58,16 @@ public class RealtimeClientTest {
     }
 
     @Test
+    public void testGetExecutorService() {
+        // Act
+        ExecutorService executorService = client.getExecutorService();
+
+        // Assert
+        assertNotNull(executorService);
+        assertInstanceOf(ThreadPoolExecutor.class, executorService);
+    }
+
+    @Test
     public void testConnect() throws Exception {
         // Act
         client.connect();

@@ -147,6 +147,31 @@ client.on("topic1.*", (Object... eventArgs) -> {
 });
 ```
 
+#### Concurrency Support 
+
+The underlying EventEmitter implementation uses a single thread for event handling. If you need to handle events concurrently, 
+consider using a thread pool or executor service to process events in parallel.
+
+You can access the client `ExecutorService` instance by calling the `getExecutorService()` method:
+
+```java
+client.on("secure/inbound.gettime", (Object... eventArgs) -> {
+    var replyFn = (ReplyFunction) eventArgs[1];
+    logger.info("Responding to gettime request on a separate thread...");
+
+    client.getExecutorService().submit(() -> {
+        try {
+            var response = Map.of("time", new Date());
+            // Send a reply and wait for acknowledgment
+            replyFn.reply(response, "ok", false).waitForAck().get();
+            logger.info("Response delivered!");
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed to send reply", e);
+        }
+    });
+});
+```
+
 ### Publishing Messages
 
 Publish messages to a topic:
@@ -253,6 +278,12 @@ Creates a new `RealtimeClient` instance.
 - **config**: Configuration options for the client encapsulated in `RealtimeClientConfig`.
 
 #### Methods
+
+- **getExecutorService()**: Returns the `ExecutorService` instance used by the client.
+
+  ```java
+  public ExecutorService getExecutorService();
+  ```
 
 - **connect()**: Connects the client to the WebSocket Messaging Gateway.
 

@@ -115,9 +115,18 @@ public class RealtimeClient extends EventEmitter {
         };
     }
 
+    /**
+     * Gets the ExecutorService used by the RealtimeClient. A fixed thread pool (size = number of processors).
+     *
+     * @return The ExecutorService instance.
+     */
+    public ExecutorService getExecutorService() {
+        return executorService;
+    }
+
     private void onAck(Object[] args) {
         if (args.length == 0) return;
-        var message = (IncomingMessage)(args[0]);
+        var message = (IncomingMessage) (args[0]);
         if (message == null) return;
 
         Map<String, Object> data = safeCastToMap(message.getData());
@@ -132,7 +141,7 @@ public class RealtimeClient extends EventEmitter {
 
     private void onResponse(Object[] args) {
         if (args.length == 0) return;
-        var message = (IncomingMessage)(args[0]);
+        var message = (IncomingMessage) (args[0]);
         if (message == null) return;
 
         String topic = (String) message.getTopic();
@@ -153,7 +162,7 @@ public class RealtimeClient extends EventEmitter {
 
     private void onWelcome(Object[] args) {
         if (args.length == 0) return;
-        var message = (IncomingMessage)(args[0]);
+        var message = (IncomingMessage) (args[0]);
         if (message == null) return;
 
         Map<String, Object> data = safeCastToMap(message.getData());
@@ -550,15 +559,7 @@ public class RealtimeClient extends EventEmitter {
         try {
             URI uri = new URI(url);
             String maskedQuery = (uri.getQuery() != null) ? "****" : null;
-            URI maskedUri = new URI(
-                    uri.getScheme(),
-                    uri.getUserInfo(),
-                    uri.getHost(),
-                    uri.getPort(),
-                    uri.getPath(),
-                    maskedQuery,
-                    uri.getFragment()
-            );
+            URI maskedUri = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(), uri.getPath(), maskedQuery, uri.getFragment());
             return maskedUri.toString();
         } catch (URISyntaxException e) {
             // If masking fails, return a generic message
