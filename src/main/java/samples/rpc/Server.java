@@ -36,15 +36,18 @@ public class Server {
         client.on("secure/inbound.gettime", (Object... eventArgs) -> {
             var replyFn = (ReplyFunction) eventArgs[1];
 
-            logger.info("Responding to gettime request...");
+            client.getExecutorService().submit(() -> {
+                logger.info("Responding to gettime request...");
 
-            // Send a reply
-            try {
-                var waitFor = replyFn.reply(Map.of("time", new Date()), "ok", false);
-                waitFor.waitForAck().thenAccept(ack -> logger.info("Acknowledgment received."));
-            } catch (Exception e) {
-                logger.log(Level.SEVERE, "Failed to send reply", e);
-            }
+                try {
+                    var response = Map.of("time", new Date());
+                    // Send a reply and wait for acknowledgment
+                    replyFn.reply(response, "ok", false).waitForAck().get();
+                    logger.info("Response delivered!");
+                } catch (Exception e) {
+                    logger.log(Level.SEVERE, "Failed to send reply", e);
+                }
+            });
         });
 
         client.connect();
