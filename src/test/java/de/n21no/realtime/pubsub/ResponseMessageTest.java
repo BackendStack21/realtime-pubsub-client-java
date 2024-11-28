@@ -1,4 +1,4 @@
-package realtime.pubsub;
+package de.n21no.realtime.pubsub;
 
 import org.junit.jupiter.api.Test;
 

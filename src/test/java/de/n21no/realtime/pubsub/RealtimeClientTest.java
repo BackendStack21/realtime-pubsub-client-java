@@ -1,4 +1,4 @@
-package realtime.pubsub;
+package de.n21no.realtime.pubsub;
 
 import jakarta.websocket.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,7 +8,6 @@ import org.mockito.ArgumentCaptor;
 import java.net.URI;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

@@ -1,4 +1,4 @@
-package realtime.pubsub;
+package de.n21no.realtime.pubsub;
 
 import java.io.IOException;
 import java.net.URI;

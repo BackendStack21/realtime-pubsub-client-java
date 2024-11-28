@@ -1,6 +1,6 @@
 package samples;
 
-import realtime.pubsub.*;
+import de.n21no.realtime.pubsub.*;
 
 import java.util.Map;
 import java.util.concurrent.ExecutionException;

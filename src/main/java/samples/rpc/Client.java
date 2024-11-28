@@ -1,6 +1,7 @@
 package samples.rpc;
 
-import realtime.pubsub.*;
+import de.n21no.realtime.pubsub.RealtimeClient;
+import de.n21no.realtime.pubsub.RealtimeClientConfig;
 
 import java.util.logging.Logger;
 

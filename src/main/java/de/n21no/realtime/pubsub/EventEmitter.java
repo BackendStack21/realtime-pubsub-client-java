@@ -1,4 +1,4 @@
-package realtime.pubsub;
+package de.n21no.realtime.pubsub;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

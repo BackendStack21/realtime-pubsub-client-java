@@ -23,18 +23,19 @@ Add the following dependency to your `pom.xml`:
 
 ```xml
 <dependency>
-    <groupId>de.21no</groupId>
-    <artifactId>realtime-pubsub-client</artifactId>
+    <groupId>de.n21no.realtime.pubsub</groupId>
+    <artifactId>core</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
+> Note: Use the version number that corresponds to the latest release.
 
 ### Gradle
 
 Add the following to your `build.gradle` dependencies:
 
 ```kt
-implementation 'de.21no:realtime-pubsub-client:1.0.0'
+implementation 'de.n21no.realtime.pubsub:core:1.0.0'
 ```
 
 **Dependencies**:
@@ -73,9 +74,9 @@ This guide will help you set up and use the `realtime-pubsub-client` library in 
 First, import the `RealtimeClient` class and create a new instance with the required configuration:
 
 ```java
-import realtime.pubsub.RealtimeClient;
-import realtime.pubsub.RealtimeClientConfig;
-import realtime.pubsub.ConnectionInfo;
+import de.n21no.realtime.pubsub.RealtimeClient;
+import de.n21no.realtime.pubsub.RealtimeClientConfig;
+import de.n21no.realtime.pubsub.ConnectionInfo;
 
 public class ClientDemo {
     public static void main(String[] args) {

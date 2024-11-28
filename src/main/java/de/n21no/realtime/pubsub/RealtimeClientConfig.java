@@ -1,6 +1,4 @@
-package realtime.pubsub;
-
-import javax.net.ssl.SSLContext;
+package de.n21no.realtime.pubsub;
 
 /**
  * Configuration class for RealtimeClient.

@@ -1,6 +1,6 @@
 package samples.rpc;
 
-import realtime.pubsub.*;
+import de.n21no.realtime.pubsub.*;
 
 import java.util.Date;
 import java.util.Map;
