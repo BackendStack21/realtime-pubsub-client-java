@@ -150,9 +150,9 @@ client.on("topic1.*", (Object... eventArgs) -> {
 #### Concurrency Support 
 
 The underlying EventEmitter implementation uses a single thread for event handling. If you need to handle events concurrently, 
-consider using a thread pool or executor service to process events in parallel.
+or block the active thread, DO use a thread pool or executor service to process events in a separate thread.
 
-You can access the client `ExecutorService` instance by calling the `getExecutorService()` method:
+For example, you can access the client `ExecutorService` instance by calling the `getExecutorService()` method:
 
 ```java
 client.on("secure/inbound.gettime", (Object... eventArgs) -> {
