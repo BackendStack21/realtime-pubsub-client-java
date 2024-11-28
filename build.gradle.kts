@@ -75,6 +75,14 @@ publishing {
             groupId = "de.n21no.realtime.pubsub"
             artifactId = "core"
             version = version
+
+            // Exclude the samples package
+            pom {
+                withXml {
+                    asNode().appendNode("build").appendNode("resources").appendNode("excludes")
+                        .appendNode("exclude", "samples/**")
+                }
+            }
         }
     }
     repositories {
@@ -87,4 +95,9 @@ publishing {
             }
         }
     }
+}
+
+// Exclude samples directory from JAR task
+tasks.named<Jar>("jar") {
+    exclude("samples/**")
 }
