@@ -26,7 +26,6 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.mockito:mockito-core:5.14.2")
 }
-
 tasks.test {
     useJUnitPlatform()
 }
@@ -94,10 +93,6 @@ publishing {
     publications {
         create<MavenPublication>("gpr") {
             from(components["java"])
-
-            // Attach sources and Javadoc JARs
-            artifact(tasks.named("sourcesJar"))
-            artifact(tasks.named("javadocJar"))
 
             groupId = "de.n21no.realtime.pubsub"
             artifactId = "core"
