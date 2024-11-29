@@ -3,7 +3,7 @@ import java.io.ByteArrayOutputStream
 plugins {
     id("java")
     id("maven-publish")
-    signing
+    //signing
 }
 
 repositories {
@@ -136,6 +136,6 @@ publishing {
     }
 }
 
-signing {
-    sign(publishing.publications["mavenJava"])
-}
+//signing {
+//    sign(publishing.publications["mavenJava"])
+//}
