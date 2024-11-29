@@ -97,7 +97,29 @@ publishing {
     }
 }
 
-// Exclude samples directory from JAR task
+sourceSets {
+    main {
+        java {
+            srcDirs("src/main/java")
+            exclude("samples/**")
+        }
+    }
+}
+
 tasks.named<Jar>("jar") {
     exclude("samples/**")
+}
+
+tasks.named<Jar>("sourcesJar") {
+    exclude("samples/**")
+}
+
+tasks.named<Javadoc>("javadoc") {
+    exclude("samples/**")
+}
+
+java {
+    // Include sources and Javadoc JARs
+    withSourcesJar()
+    withJavadocJar()
 }
