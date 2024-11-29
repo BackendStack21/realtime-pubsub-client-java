@@ -24,16 +24,15 @@ dependencies {
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    // https://mvnrepository.com/artifact/org.mockito/mockito-core
     testImplementation("org.mockito:mockito-core:5.14.2")
 }
+
 tasks.test {
     useJUnitPlatform()
 }
 
 // Dynamically set the version from the latest Git tag
 version = run {
-    // Function to check if Git is available
     fun isGitAvailable(): Boolean {
         return try {
             exec {
@@ -57,69 +56,23 @@ version = run {
                 isIgnoreExitValue = true
             }
             val gitTag = stdout.toString().trim()
-            gitTag.ifEmpty {
-                "1.0.0-SNAPSHOT" // Default version if no tag is found
-            }
+            if (gitTag.isNotEmpty()) gitTag else "1.0.0-SNAPSHOT"
         } catch (e: Exception) {
-            "1.0.0-SNAPSHOT" // Default version if Git command fails
+            "1.0.0-SNAPSHOT"
         }
     } else {
-        "1.0.0-SNAPSHOT" // Default version if Git is not available
+        "1.0.0-SNAPSHOT"
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("gpr") {
-            from(components["java"])
-            groupId = "de.n21no.realtime.pubsub"
-            artifactId = "core"
-            version = version
-
-            artifact(tasks["sourcesJar"])
-            artifact(tasks["javadocJar"])
-
-            pom {
-                name.set("Realtime Pub/Sub Client")
-                description.set("A Java client for Realtime Pub/Sub")
-                url.set("https://github.com/BackendStack21/realtime-pubsub-client-java")
-                licenses {
-                    license {
-                        name.set("MIT License")
-                        url.set("https://opensource.org/licenses/MIT")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("BackendStack21")
-                        name.set("21no.de")
-                        email.set("contact@21no.de")
-                    }
-                }
-                scm {
-                    connection.set("scm:git:https://github.com/BackendStack21/realtime-pubsub-client-java.git")
-                    developerConnection.set("scm:git:ssh://git@github.com:BackendStack21/realtime-pubsub-client-java.git")
-                    url.set("https://github.com/BackendStack21/realtime-pubsub-client-java")
-                }
-            }
-        }
-    }
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/BackendStack21/realtime-pubsub-client-java")
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
+java {
+    withSourcesJar()
+    withJavadocJar()
 }
 
 sourceSets {
     main {
         java {
-            srcDirs("src/main/java")
             exclude("samples/**")
         }
     }
@@ -137,8 +90,48 @@ tasks.named<Javadoc>("javadoc") {
     exclude("samples/**")
 }
 
-java {
-    // Include sources and Javadoc JARs
-    withSourcesJar()
-    withJavadocJar()
+publishing {
+    publications {
+        create<MavenPublication>("gpr") {
+            from(components["java"])
+
+            // Attach sources and Javadoc JARs
+            artifact(tasks.named("sourcesJar"))
+            artifact(tasks.named("javadocJar"))
+
+            groupId = "de.n21no.realtime.pubsub"
+            artifactId = "core"
+            version = project.version.toString()
+
+            pom {
+                name.set("Realtime Pub/Sub Client")
+                description.set("A Java client for Realtime Pub/Sub")
+                url.set("https://github.com/BackendStack21/realtime-pubsub-client-java")
+                licenses {
+                    license {
+                        name.set("MIT License")
+                        url.set("https://opensource.org/licenses/MIT")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("BackendStack21")
+                        name.set("21no.de")
+                        email.set("realtime.contact@21no.de")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:https://github.com/BackendStack21/realtime-pubsub-client-java.git")
+                    developerConnection.set("scm:git:ssh://git@github.com:BackendStack21/realtime-pubsub-client-java.git")
+                    url.set("https://github.com/BackendStack21/realtime-pubsub-client-java")
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/BackendStack21/realtime-pubsub-client-java")
+        }
+    }
 }
