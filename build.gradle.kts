@@ -3,6 +3,7 @@ import java.io.ByteArrayOutputStream
 plugins {
     id("java")
     id("maven-publish")
+    signing
 }
 
 repositories {
@@ -91,7 +92,7 @@ tasks.named<Javadoc>("javadoc") {
 
 publishing {
     publications {
-        create<MavenPublication>("gpr") {
+        create<MavenPublication>("mavenJava") {
             from(components["java"])
 
             groupId = "de.n21no.realtime.pubsub"
@@ -133,4 +134,8 @@ publishing {
             }
         }
     }
+}
+
+signing {
+    sign(publishing.publications["mavenJava"])
 }
