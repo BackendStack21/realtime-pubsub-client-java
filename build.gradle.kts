@@ -76,11 +76,30 @@ publishing {
             artifactId = "core"
             version = version
 
-            // Exclude the samples package
+            artifact(tasks["sourcesJar"])
+            artifact(tasks["javadocJar"])
+
             pom {
-                withXml {
-                    asNode().appendNode("build").appendNode("resources").appendNode("excludes")
-                        .appendNode("exclude", "samples/**")
+                name.set("Realtime Pub/Sub Client")
+                description.set("A Java client for Realtime Pub/Sub")
+                url.set("https://github.com/BackendStack21/realtime-pubsub-client-java")
+                licenses {
+                    license {
+                        name.set("MIT License")
+                        url.set("https://opensource.org/licenses/MIT")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("BackendStack21")
+                        name.set("21no.de")
+                        email.set("contact@21no.de")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:https://github.com/BackendStack21/realtime-pubsub-client-java.git")
+                    developerConnection.set("scm:git:ssh://git@github.com:BackendStack21/realtime-pubsub-client-java.git")
+                    url.set("https://github.com/BackendStack21/realtime-pubsub-client-java")
                 }
             }
         }
