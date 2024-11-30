@@ -1,4 +1,4 @@
-package de.n21no.realtime.pubsub;
+package de.backendstack21.realtime.pubsub;
 
 public enum PresenceStatus {
     CONNECTED("connected"),

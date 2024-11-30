@@ -23,8 +23,8 @@ Add the following dependency to your `pom.xml`:
 
 ```xml
 <dependency>
-    <groupId>de.n21no.realtime.pubsub</groupId>
-    <artifactId>core</artifactId>
+    <groupId>de.backendstack21</groupId>
+    <artifactId>realtime-pubsub</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
@@ -35,7 +35,7 @@ Add the following dependency to your `pom.xml`:
 Add the following to your `build.gradle` dependencies:
 
 ```kt
-implementation 'de.n21no.realtime.pubsub:core:1.0.0'
+implementation 'de.backendstack21:realtime-pubsub:1.0.0'
 ```
 
 **Dependencies**:
@@ -67,16 +67,14 @@ implementation 'de.n21no.realtime.pubsub:core:1.0.0'
 
 ## Getting Started
 
-This guide will help you set up and use the `realtime-pubsub-client` library in your Java project.
-
 ### Connecting to the Server
 
 First, import the `RealtimeClient` class and create a new instance with the required configuration:
 
 ```java
-import de.n21no.realtime.pubsub.RealtimeClient;
-import de.n21no.realtime.pubsub.RealtimeClientConfig;
-import de.n21no.realtime.pubsub.ConnectionInfo;
+import de.backendstack21.realtime.pubsub.RealtimeClient;
+import de.backendstack21.realtime.pubsub.RealtimeClientConfig;
+import de.backendstack21.realtime.pubsub.ConnectionInfo;
 
 public class ClientDemo {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package de.n21no.realtime.pubsub;
+package de.backendstack21.realtime.pubsub;
 
 import jakarta.websocket.*;
 import org.junit.jupiter.api.BeforeEach;
