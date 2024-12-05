@@ -45,7 +45,7 @@ public class IncomingMessageTest {
         assertNotNull(incomingMessage);
         assertEquals("test.topic", incomingMessage.getTopic());
         assertNull(incomingMessage.getMessageType());
-        assertNull(incomingMessage.getCompression());
+        assertFalse(incomingMessage.getCompression());
         assertNull(incomingMessage.getData());
     }
 
