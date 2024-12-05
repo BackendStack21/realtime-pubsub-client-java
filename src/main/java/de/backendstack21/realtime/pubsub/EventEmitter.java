@@ -16,7 +16,6 @@ public class EventEmitter {
      */
     private static final Logger logger = Logger.getLogger(EventEmitter.class.getName());
 
-
     private final Map<String, List<EventListener>> events;
 
     /**
@@ -113,6 +112,15 @@ public class EventEmitter {
         return matchSegments(patternSegments, eventSegments, 0, 0);
     }
 
+    /**
+     * Helper method to match event segments with pattern segments.
+     *
+     * @param patternSegments The segments of the event pattern.
+     * @param eventSegments   The segments of the event name.
+     * @param i               The current index in the pattern segments.
+     * @param j               The current index in the event segments.
+     * @return True if the segments match, False otherwise.
+     */
     private static boolean matchSegments(String[] patternSegments, String[] eventSegments, int i, int j) {
         while (i < patternSegments.length && j < eventSegments.length) {
             if (patternSegments[i].equals("**")) {
