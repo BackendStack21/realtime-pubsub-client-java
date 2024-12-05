@@ -53,7 +53,7 @@ import jakarta.websocket.*;
  *
  * <h2>Typical Usage:</h2>
  * <pre>{@code
- * RealtimeClientConfig config = new RealtimeClientConfig(() -> "ws://example.com/realtime");
+ * RealtimeClientConfig config = new RealtimeClientConfig(() -> String.format("wss://genesis.r7.21no.de/apps/%s?access_token=%s", appId, accessToken));
  * RealtimeClient client = new RealtimeClient(config);
  *
  * // Connect and listen for session started events
