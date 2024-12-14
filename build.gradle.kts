@@ -3,7 +3,6 @@ import java.io.ByteArrayOutputStream
 plugins {
     id("java")
     id("maven-publish")
-    //signing
 }
 
 repositories {
@@ -95,13 +94,13 @@ publishing {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
 
-            groupId = "de.n21no.realtime.pubsub"
-            artifactId = "core"
+            groupId = "de.backendstack21"
+            artifactId = "realtime-pubsub"
             version = project.version.toString()
 
             pom {
                 name.set("Realtime Pub/Sub Client")
-                description.set("A Java client for Realtime Pub/Sub")
+                description.set("A Java client for Realtime Pub/Sub (https://realtime.21no.de)")
                 url.set("https://github.com/BackendStack21/realtime-pubsub-client-java")
                 licenses {
                     license {
@@ -111,9 +110,7 @@ publishing {
                 }
                 developers {
                     developer {
-                        id.set("BackendStack21")
-                        name.set("21no.de")
-                        email.set("realtime.contact@21no.de")
+                        email.set("kyberneees@gmail.com")
                     }
                 }
                 scm {
@@ -126,16 +123,8 @@ publishing {
     }
     repositories {
         maven {
-            name = "MavenCentral"
-            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = System.getenv("OSSRH_USERNAME")
-                password = System.getenv("OSSRH_PASSWORD")
-            }
+            // local repository
+            url = uri("file://${project.layout.buildDirectory.get()}/repo")
         }
     }
 }
-
-//signing {
-//    sign(publishing.publications["mavenJava"])
-//}
