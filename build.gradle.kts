@@ -89,6 +89,24 @@ tasks.named<Javadoc>("javadoc") {
     exclude("samples/**")
 }
 
+// Task to zip the local repository folder after publishing
+tasks.register<Zip>("zipRepo") {
+    dependsOn("publish") // Ensure repo is published before zipping
+    from("file://${project.layout.buildDirectory.get()}/repo")
+    archiveFileName.set("bundle.zip")
+    destinationDirectory.set(layout.buildDirectory)
+}
+
+// Task to delete the repo directory before publishing
+tasks.register<Delete>("cleanRepo") {
+    delete(layout.buildDirectory.dir("repo"))
+}
+
+// Make sure the repo is cleaned before publishing
+tasks.named("publish") {
+    dependsOn("cleanRepo")
+}
+
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
@@ -108,11 +126,6 @@ publishing {
                         url.set("https://opensource.org/licenses/MIT")
                     }
                 }
-                developers {
-                    developer {
-                        email.set("kyberneees@gmail.com")
-                    }
-                }
                 scm {
                     connection.set("scm:git:https://github.com/BackendStack21/realtime-pubsub-client-java.git")
                     developerConnection.set("scm:git:ssh://git@github.com:BackendStack21/realtime-pubsub-client-java.git")
@@ -125,6 +138,14 @@ publishing {
         maven {
             // local repository
             url = uri("file://${project.layout.buildDirectory.get()}/repo")
+        }
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/BackendStack21/realtime-pubsub-client-java")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
         }
     }
 }
