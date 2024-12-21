@@ -54,7 +54,8 @@ version = run {
                 errorOutput = ByteArrayOutputStream()
                 isIgnoreExitValue = true
             }
-            val gitTag = stdout.toString().trim()
+            // get gittag without 'v'
+            val gitTag = stdout.toString().trim().removePrefix("v")
             if (gitTag.isNotEmpty()) gitTag else "1.0.0-SNAPSHOT"
         } catch (e: Exception) {
             "1.0.0-SNAPSHOT"
